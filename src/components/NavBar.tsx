@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
-export default function NavBar(){
+const NavBar=()=>{
     const [showAddNoteDialog,setShowAddNoteDialog]=useState(false);
 
 
@@ -31,3 +31,4 @@ export default function NavBar(){
         </div>
     )
 }
+export default NavBar

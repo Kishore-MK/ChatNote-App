@@ -19,7 +19,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "./button";
 import { Link, XCircle } from "lucide-react";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), {ssr: false});
+
 import "react-quill/dist/quill.snow.css";
 import notemodel from "@/lib/notemodel";
 

@@ -1,18 +1,12 @@
 "use client";
 import { CreateNoteSchema, noteSchema } from "@/lib/validation/note";
-import ReactQuill from "react-quill";
-import { useQuill } from "react-quilljs";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), {ssr: false});
+
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { LoadingButton } from "./ui/loading-button";
@@ -52,7 +46,7 @@ export default function EditNote({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  const { quill, quillRef } = useQuill();
+ 
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -127,7 +121,7 @@ export default function EditNote({
         ],
       });
     } else {
-      alert("Add maximum of four links!");
+      console.log("Add maximum of four links!");
     }
   };
 
@@ -161,7 +155,7 @@ export default function EditNote({
         <div
           className={cn(
             open
-              ? "flex flex-col h-[878px]  shadow-xl border-[1px] border-gray-200 gap-6 p-10 rounded-xl"
+              ? "flex flex-col h-[878px] shadow-xl border-[1px] border-gray-200 gap-6 p-10 rounded-xl"
               : "hidden"
           )}
         >
@@ -274,7 +268,7 @@ export default function EditNote({
               <div className="grid grid-cols-1 md:grid-cols-1 gap-3">
                 <label className="text-2xl">Title</label>
                 <div className="flex items-center p-3 justify-center rounded-lg bg-slate-100">
-                  <p className="w-full pl-[10px] text-lg">{NoteToEdit.title}</p>
+                  <p className="md:w-[650px] pl-[10px] text-lg">{NoteToEdit.title}</p>
                 </div>
                 <br />
                 <label className="text-2xl">Content</label>
