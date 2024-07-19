@@ -95,7 +95,7 @@ export default function EditNote({
     } catch (e) {
       console.error(e);
     } finally {
-      window.location.reload();
+      router.refresh()
     }
   }
 
