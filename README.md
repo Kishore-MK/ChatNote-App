@@ -4,7 +4,7 @@
 
 Clone this repo 
 
-Added API keys to .env file
+Add your API keys to .env file
 
 run docker build . -t chatnote
 
