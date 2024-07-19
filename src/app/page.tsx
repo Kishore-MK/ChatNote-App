@@ -5,7 +5,6 @@ import prisma from "@/lib/db/prisma"
 
 async function Notespage(){
   {
-    const allnotes = await prisma.note.findMany();
     
     
 
