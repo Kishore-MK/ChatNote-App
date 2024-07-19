@@ -22,6 +22,7 @@ export async function POST(req: Request) {
       console.error(parseResult.error);
       return Response.json({ error: "Invalid input" }, { status: 400 });
     }
+    var linkdataEmbeddings: number[][] = []
 
     const { title, content, link } = parseResult.data;
     console.log(link);
@@ -124,7 +125,7 @@ export async function PUT(req: Request) {
             (existingLink) => existingLink.link === newLink.link
           )
       ) ?? [];
-
+      var linkdataEmbeddings: number[][] =[]
       
 
     if (linksToCreate?.length !== 0) {

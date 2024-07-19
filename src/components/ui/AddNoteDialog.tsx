@@ -16,17 +16,17 @@ import { Input } from "./input";
 import { Textarea } from "./textarea";
 import { LoadingButton } from "./loading-button";
 import { useRouter } from "next/navigation";
-import { Note } from "@prisma/client";
 import { useState } from "react";
 import { Button } from "./button";
 import { Link, XCircle } from "lucide-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import notemodel from "@/lib/notemodel";
 
 interface AddNoteDialogProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  noteToEdit?: Note;
+  noteToEdit?: notemodel;
 }
 
 export default function AddNoteDialog({
