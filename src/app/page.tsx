@@ -10,8 +10,8 @@ async function Notespage(){
     
 
     return (
-      <div>
-      <h1>use /notes in your url</h1>
+      <div className="flex items-center justify-center">
+      <h1 className="text-2xl">use /notes in your url</h1>
   </div>
   
     )

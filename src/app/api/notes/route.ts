@@ -13,6 +13,8 @@ import { Pinecone } from "@pinecone-database/pinecone";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
 
+
+
 export async function POST(req: Request) {
   try {
     const data = await req.json();
@@ -22,35 +24,35 @@ export async function POST(req: Request) {
       console.error(parseResult.error);
       return Response.json({ error: "Invalid input" }, { status: 400 });
     }
-    var linkdataEmbeddings: number[][] = []
+    var linkdataEmbeddings: number[][] = [];
 
     const { title, content, link } = parseResult.data;
     console.log(link);
-  
+
     const urls = link?.map((url) => `link: ${url}`).join("\n");
     console.log("embed", urls);
     const embedding = await getEmbeddingForNote(title, content, urls ?? "");
 
     if (link?.length !== 0 && link !== undefined) {
-      const data:Promise<any>[] = link?.map((url) => scrapeAndProcessData(url));
+      const data: Promise<any>[] = link?.map((url) =>
+        scrapeAndProcessData(url)
+      );
       const allCleanedData = await Promise.all(data);
       var combinedText = allCleanedData.join(" ");
       console.log(combinedText);
       const docs = await generateChunks(combinedText);
       console.log(docs);
 
-      var linkdataEmbeddings: number[][] =await getLinkdataEmbeddings(docs);
-      console.log(linkdataEmbeddings)
-      
+      var linkdataEmbeddings: number[][] = await getLinkdataEmbeddings(docs);
+      console.log(linkdataEmbeddings);
     }
-    
 
     const note = await prisma.$transaction(async (tx) => {
       const note = await tx.note.create({
         data: {
           title,
           content,
-          linkdata:combinedText,
+          linkdata: combinedText,
           links: {
             create: link?.map((link) => ({
               link: link,
@@ -65,15 +67,15 @@ export async function POST(req: Request) {
           values: embedding,
         },
       ]);
-      
-      linkdataEmbeddings.map(async (linkdata)=>{
+
+      linkdataEmbeddings.map(async (linkdata) => {
         await notesIndex.upsert([
           {
             id: note.id,
             values: linkdata,
           },
-        ])
-      })
+        ]);
+      });
       return note;
     });
     console.log(note);
@@ -114,8 +116,7 @@ export async function PUT(req: Request) {
     });
 
     const linksToDelete = currentLinks.filter(
-      (existingLink) =>
-        !link.some((check) => check.link === existingLink.link)
+      (existingLink) => !link.some((check) => check.link === existingLink.link)
     );
 
     const linksToCreate =
@@ -125,8 +126,7 @@ export async function PUT(req: Request) {
             (existingLink) => existingLink.link === newLink.link
           )
       ) ?? [];
-      var linkdataEmbeddings: number[][] =[]
-      
+    var linkdataEmbeddings: number[][] = [];
 
     if (linksToCreate?.length !== 0) {
       const data = linksToCreate?.map((url) => scrapeAndProcessData(url.link));
@@ -136,9 +136,8 @@ export async function PUT(req: Request) {
       const docs = await generateChunks(combinedText);
       console.log(docs);
 
-      var linkdataEmbeddings: number[][] =await getLinkdataEmbeddings(docs);
-      console.log(linkdataEmbeddings)
-      
+      var linkdataEmbeddings: number[][] = await getLinkdataEmbeddings(docs);
+      console.log(linkdataEmbeddings);
     }
 
     const updatednote = await prisma.$transaction(async (tx) => {
@@ -148,11 +147,11 @@ export async function PUT(req: Request) {
         },
         data: {
           title,
-          linkdata:combinedText,
+          linkdata: combinedText,
           content,
         },
       });
-      
+
       await Promise.all(
         linksToDelete.map(async (link) => {
           await tx.link.delete({
@@ -179,14 +178,14 @@ export async function PUT(req: Request) {
           values: embedding,
         },
       ]);
-      linkdataEmbeddings.map(async (linkdata)=>{
+      linkdataEmbeddings.map(async (linkdata) => {
         await notesIndex.upsert([
           {
             id: id,
             values: linkdata,
           },
-        ])
-      })
+        ]);
+      });
       return note;
     });
     console.log(updatednote);
@@ -252,18 +251,18 @@ async function generateChunks(text: string) {
 
   return output;
 }
-const apiKey =process.env.OPENAI_API_KEY
-async function getLinkdataEmbeddings(docs:any) {
-  console.log("Creating link embeddings..")
+const apiKey = process.env.OPENAI_API_KEY;
+async function getLinkdataEmbeddings(docs: any) {
+  console.log("Creating link embeddings..");
   const embeddings = new OpenAIEmbeddings({
     apiKey,
-    batchSize: 512, 
+    batchSize: 512,
     model: "text-embedding-ada-002",
   });
   const vectors = await embeddings.embedDocuments(docs);
-console.log(vectors[0].length);
+  console.log(vectors[0].length);
 
-  return vectors
+  return vectors;
 
-  console.log("Link data vectors stored..")
+  console.log("Link data vectors stored..");
 }

@@ -19,7 +19,7 @@ interface allnotesprops{
 
 const ViewNote = ({ allnotes }:allnotesprops) => {
   {
-    console.log(allnotes);
+    
     const [edit, setEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [notetoedit, setNoteToEdit] = useState<notemodel>();

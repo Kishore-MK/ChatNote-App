@@ -84,12 +84,12 @@ export default function EditNote({
       if (!response.ok) throw Error("Status code: " + response.status);
 
       setEdit(false);
-
+      router.refresh();
       SetDeleteInProgress(false);
     } catch (e) {
       console.error(e);
     } finally {
-      router.refresh()
+      router.refresh();
     }
   }
 
@@ -173,7 +173,7 @@ export default function EditNote({
                 <LoadingButton
                   className="rounded-3xl"
                   type="submit"
-                  loading={false}
+                  loading={isSubmitting}
                 >
                   Save
                 </LoadingButton>
