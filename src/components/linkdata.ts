@@ -37,7 +37,7 @@ async function scrapeAndProcessData(url: string) {
     console.log("fetching..", url);
     
     const scrapedData = await app.scrapeUrl(url);
-    const text = await scrapedData.data.content
+    const text = scrapedData.data?.content
       .replace(/[|]/g, "")
       .replace(/[=]/g, "")
       .replace(/[*-]/g, "")
