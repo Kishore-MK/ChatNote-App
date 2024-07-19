@@ -2,6 +2,7 @@ type notemodel = {
     id: string;
     title: string;
     content: string | null;
+    linkdata: string | null;
     createdAt: Date;
     updatedAt: Date;
 }& {

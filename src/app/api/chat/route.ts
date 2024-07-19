@@ -1,5 +1,6 @@
 import { notesIndex } from "@/lib/db/pinecone";
 import prisma from "@/lib/db/prisma";
+import notemodel from "@/lib/notemodel";
 import openai, { getEmbedding } from "@/lib/openai";
 import {OpenAIStream, StreamingTextResponse} from "ai";
 import { ChatCompletionMessage } from "openai/resources/index.mjs";
@@ -32,7 +33,7 @@ export async function POST(req: Request) {
         role:"assistant",
         content : "You are an intelligent note-taking app. You answer the user's questions based on their notes."+
         "The relevant notes for this query are: \n"+
-        relevantNotes.map((note)=>`Title: ${note.title}\n\nContent:\n${note.content}\n\n${note.linkdata}\n\n${note.links.map((link)=>`link: ${link.link}`).join("\n")}`).join("\n")
+        relevantNotes.map((note:notemodel)=>`Title: ${note.title}\n\nContent:\n${note.content}\n\n${note.linkdata}\n\n${note.links.map((link)=>`link: ${link.link}`).join("\n")}`).join("\n")
     };
 
     const response = await openai.chat.completions.create({
