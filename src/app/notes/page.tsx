@@ -9,6 +9,7 @@ async function getAllNotes() {
         <ViewNote allnotes={allNotes}/>
       )
   }
+getAllNotes()
   
 export default getAllNotes
 
