@@ -166,7 +166,7 @@ export default function AddNoteDialog({
                   <FormItem>
                     <FormLabel>
                       <Button
-                        className="p-0 mt-10 text-lg border-none hover:bg-background-none"
+                        className="p-0 mt-10 text-lg border-none hover:bg-background-none dark:bg-gray-950"
                         variant="outline"
                         type="button"
                         onClick={addInputField}

@@ -15,8 +15,8 @@ function ShowLink({value}:linkprops) {
       try {
         
         const data = await Meta.parse(value); 
-        const response = await JSON.stringify(data, null, 3);
-        await setMetadata(data.og.site_name);
+        const response =  JSON.stringify(data, null, 3);
+        setMetadata(data.og.site_name);
         setTitle(data.meta.title)
         
       } catch (err) {
@@ -27,7 +27,7 @@ function ShowLink({value}:linkprops) {
     if (value) {
      fetchMetadata();
     }
-  }, []);
+  }, [value]);
   
   console.log(metadata);
   return (

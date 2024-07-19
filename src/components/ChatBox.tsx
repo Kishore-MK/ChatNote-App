@@ -42,7 +42,7 @@ export default function ChatBox({ open, onClose }: ChatBoxProps) {
   return (
     <div
       className={cn(
-        "right-0 z-10 bottom-7 h-[865px] lg:w-full max-w-[740px] p-1 sm:w-[250px] md:w-[555px]",
+        "right-0 z-10 bottom-7 h-[865px] lg:w-full max-w-[720px] p-1 sm:w-[250px] md:w-[555px]",
         open ? "absolute" : "hidden"
       )}
     >

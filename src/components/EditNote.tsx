@@ -205,7 +205,7 @@ export default function EditNote({
                 <br />
                 <label className="w-20">
                   <Button
-                    className="text-2xl font-normal p-0 border-none hover:bg-background-none active:text-gray-500 "
+                    className="text-2xl font-normal p-0 border-none hover:bg-background-none active:text-gray-500 dark:bg-black"
                     variant="outline"
                     type="button"
                     onClick={handleAddLink}
@@ -267,8 +267,8 @@ export default function EditNote({
               </div>
               <div className="grid grid-cols-1 md:grid-cols-1 gap-3">
                 <label className="text-2xl">Title</label>
-                <div className="flex items-center p-3 justify-center rounded-lg bg-slate-100">
-                  <p className="md:w-[650px] pl-[10px] text-lg">{NoteToEdit.title}</p>
+                <div className="flex items-center p-3 justify-center rounded-lg bg-slate-100 dark:bg-slate-600">
+                  <p className="md:w-[650px] pl-[10px] text-lg ">{NoteToEdit.title}</p>
                 </div>
                 <br />
                 <label className="text-2xl">Content</label>
@@ -288,7 +288,7 @@ export default function EditNote({
                 <br />
                 <label className="w-20">
                   <Button
-                    className="text-2xl font-normal p-0 border-none hover:bg-background-none active:text-gray-500 "
+                    className="text-2xl font-normal p-0 border-none hover:bg-background-none active:text-gray-500 dark:bg-black"
                     variant="outline"
                     type="button"
                   >
@@ -297,7 +297,7 @@ export default function EditNote({
                 </label>
 
                 {NoteToEdit.links.map((link, index) => (
-                  <div className="flex items-center p-3 justify-center rounded-lg bg-slate-100" key={index}>
+                  <div className="flex items-center p-3 justify-center rounded-lg bg-slate-100 dark:bg-slate-600" key={index}>
                     {/* <p>{link.link || ""}</p> */}
                     <ShowLink value={link.link || ""} />
                   </div>

@@ -26,12 +26,13 @@ export const Note = ({ note, open, setOpen,setEditNote }: NoteProps) => {
     wasUpdated ? note.updatedAt : note.createdAt
   ).toDateString();
   const handleClick=()=>{
+    console.log("setting..")
     setOpen(true)
-      setEditNote(note);
+    setEditNote(note);
   }
   return (
    <>
-    <Card className="w-[370px] my-3 cursor-pointer transition-all  hover:bg-gray-100 hover:shadow-lg "
+    <Card className="w-[370px] my-3 cursor-pointer transition-all  hover:bg-gray-100 hover:shadow-lg dark:hover:dark:bg-slate-600"
     onClick={handleClick}>
       <CardHeader>
         <CardTitle>{note.title}</CardTitle>
