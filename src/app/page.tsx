@@ -11,7 +11,7 @@ async function Notespage(){
 
     return (
       <div>
-      FUck you
+      <h1>use /notes in your url</h1>
   </div>
   
     )
