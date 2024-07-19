@@ -73,6 +73,7 @@ export default function AddNoteDialog({
           method: "POST",
           body: JSON.stringify({ ...input, link: inputFields }),
         });
+        setIsSubmitting(false)
         if (!response.ok) throw Error("Status code: " + response.status);
         setInputFields([]);
         form.reset();

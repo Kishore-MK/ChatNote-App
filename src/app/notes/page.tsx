@@ -5,12 +5,10 @@ async function getAllNotes() {
       const allNotes = await prisma.note.findMany({
         include: {links: true},
       });
-      
       return (
         <ViewNote allnotes={allNotes}/>
       )
   }
-
   
 export default getAllNotes
 

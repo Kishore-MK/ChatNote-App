@@ -31,7 +31,7 @@ interface EditNoteProps {
   edit: boolean;
   setEdit: (edit: boolean) => void;
   NoteToEdit: notemodel;
-  setNoteToEdit: (NoteToEdit: notemodel) => void;
+  setNoteToEdit: (NoteToEdit: notemodel | undefined) => void;
 }
 
 export default function EditNote({
@@ -84,7 +84,7 @@ export default function EditNote({
       if (!response.ok) throw Error("Status code: " + response.status);
 
       setEdit(false);
-      router.refresh();
+      setNoteToEdit(undefined)
       SetDeleteInProgress(false);
     } catch (e) {
       console.error(e);
