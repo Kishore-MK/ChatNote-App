@@ -5,16 +5,19 @@ import EditNote from "../EditNote";
 import { useState } from "react";
 import notemodel from "@/lib/notemodel";
 import Image from "next/image";
-import { arrow } from "/arrow.svg";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "./select";
 import { PlusCircle } from "lucide-react";
-const ViewNote = ({ allnotes }) => {
+
+interface allnotesprops{
+  allnotes: notemodel[];
+}
+
+const ViewNote = ({ allnotes }:allnotesprops) => {
   {
     console.log(allnotes);
     const [edit, setEdit] = useState(false);

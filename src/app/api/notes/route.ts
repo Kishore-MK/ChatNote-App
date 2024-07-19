@@ -7,7 +7,7 @@ import {
   noteSchema,
   updateNoteSchema,
 } from "@/lib/validation/note";
-import scrapeAndProcessData from "./linkdata";
+import scrapeAndProcessData from "../../../components/linkdata";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { OpenAIEmbeddings } from "@langchain/openai";
@@ -25,12 +25,13 @@ export async function POST(req: Request) {
 
     const { title, content, link } = parseResult.data;
     console.log(link);
+  
     const urls = link?.map((url) => `link: ${url}`).join("\n");
     console.log("embed", urls);
     const embedding = await getEmbeddingForNote(title, content, urls ?? "");
 
-    if (link?.length !== 0) {
-      const data = link?.map((url) => scrapeAndProcessData(url));
+    if (link?.length !== 0 && link !== undefined) {
+      const data:Promise<any>[] = link?.map((url) => scrapeAndProcessData(url));
       const allCleanedData = await Promise.all(data);
       var combinedText = allCleanedData.join(" ");
       console.log(combinedText);
@@ -251,7 +252,7 @@ async function generateChunks(text: string) {
   return output;
 }
 const apiKey =process.env.OPENAI_API_KEY
-async function getLinkdataEmbeddings(docs) {
+async function getLinkdataEmbeddings(docs:any) {
   console.log("Creating link embeddings..")
   const embeddings = new OpenAIEmbeddings({
     apiKey,
